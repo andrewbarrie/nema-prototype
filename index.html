@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEMA -- Know Your Risk Before You Buy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --teal:#00797A; --teal-dark:#005C5D; --teal-deeper:#004344;
+  --teal-light:#E8F4F4; --teal-mid:#A8D4D4;
+  --navy:#003E5A; --navy-dark:#002D42;
+  --white:#FFFFFF; --off-white:#F8F7F4;
+  --sand:#EDE8DF; --sand-dark:#D4CBBB;
+  --text-dark:#1C1C1C; --text-mid:#4A4A4A; --text-light:#767676;
+  --low:#2D7D46; --low-bg:#E8F5EC;
+  --med:#C47D0A; --med-bg:#FEF5E4;
+  --high:#B83030; --high-bg:#FDEAEA;
+  --radius-sm:3px; --radius:6px; --radius-lg:12px;
+  --max-w:1080px; --pad-x:48px;
+}
+html { scroll-behavior:smooth; }
+body { font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.65; color:var(--text-dark); background:var(--white); -webkit-font-smoothing:antialiased; }
+.inner { max-width:var(--max-w); margin:0 auto; padding:0 var(--pad-x); }
+
+/* PROTO NOTICE */
+.proto-notice { background:var(--navy); padding:9px var(--pad-x); font-size:12px; color:rgba(255,255,255,0.5); display:flex; align-items:center; gap:8px; }
+.proto-notice strong { color:rgba(255,255,255,0.8); font-weight:600; }
+
+/* NAV */
+.nav { background:var(--white); border-bottom:1px solid var(--sand); position:sticky; top:0; z-index:100; }
+.nav-inner { max-width:var(--max-w); margin:0 auto; padding:0 var(--pad-x); height:64px; display:flex; align-items:center; gap:32px; }
+.nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; flex-shrink:0; }
+.nav-logo-main { display:block; font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--navy); }
+.nav-logo-sub { display:block; font-size:11px; color:var(--text-light); margin-top:1px; }
+.nav-divider { width:1px; height:28px; background:var(--sand); }
+.nav-section { font-size:13px; color:var(--text-mid); font-weight:500; }
+.nav-links { display:flex; gap:2px; margin-left:auto; }
+.nav-link { padding:7px 14px; font-size:13px; font-weight:500; color:var(--text-mid); border:none; background:none; cursor:pointer; font-family:'DM Sans',sans-serif; border-radius:var(--radius-sm); transition:color 0.15s,background 0.15s; }
+.nav-link:hover { color:var(--navy); background:var(--off-white); }
+
+/* AUDIENCE BAR */
+.audience-bar { background:var(--off-white); border-bottom:1px solid var(--sand); }
+.audience-bar-inner { max-width:var(--max-w); margin:0 auto; padding:0 var(--pad-x); display:flex; align-items:center; }
+.audience-label { font-size:11px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--text-light); margin-right:20px; white-space:nowrap; }
+.audience-tab { padding:13px 20px; font-size:13px; font-weight:500; color:var(--text-mid); cursor:pointer; border:none; background:none; border-bottom:2px solid transparent; font-family:'DM Sans',sans-serif; transition:color 0.15s,border-color 0.15s; }
+.audience-tab:hover { color:var(--navy); }
+.audience-tab.active { color:var(--navy); border-bottom-color:var(--teal); font-weight:600; }
+
+/* HERO */
+.hero { background:var(--navy); padding:80px var(--pad-x) 72px; position:relative; overflow:hidden; }
+.hero::after { content:''; position:absolute; top:0; right:0; width:40%; height:100%; background:linear-gradient(to left,rgba(0,121,122,0.12),transparent); pointer-events:none; }
+.hero-inner { max-width:var(--max-w); margin:0 auto; position:relative; z-index:1; }
+.hero-eyebrow { font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal-mid); margin-bottom:24px; }
+.hero h1 { font-size:clamp(36px,4.5vw,58px); font-weight:800; color:var(--white); line-height:1.05; letter-spacing:-0.025em; margin-bottom:20px; max-width:640px; }
+.hero h1 em { font-style:normal; color:var(--teal-mid); }
+.hero-sub { font-size:18px; color:rgba(255,255,255,0.62); line-height:1.55; max-width:520px; margin-bottom:44px; }
+
+/* LOOKUP */
+.lookup-wrap { display:flex; max-width:560px; }
+.lookup-input-wrap { position:relative; flex:1; }
+.lookup-input-icon { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:rgba(255,255,255,0.35); pointer-events:none; display:flex; }
+.lookup-input { width:100%; height:50px; padding:0 16px 0 46px; background:rgba(255,255,255,0.1); border:1.5px solid rgba(255,255,255,0.2); border-right:none; border-radius:var(--radius-sm) 0 0 var(--radius-sm); font-size:15px; font-family:'DM Sans',sans-serif; color:var(--white); outline:none; transition:border-color 0.15s,background 0.15s; }
+.lookup-input::placeholder { color:rgba(255,255,255,0.35); }
+.lookup-input:focus { border-color:rgba(255,255,255,0.5); background:rgba(255,255,255,0.14); }
+.lookup-btn { height:50px; padding:0 28px; background:var(--teal); border:none; border-radius:0 var(--radius-sm) var(--radius-sm) 0; font-size:14px; font-weight:600; font-family:'DM Sans',sans-serif; color:var(--white); cursor:pointer; white-space:nowrap; transition:background 0.15s; }
+.lookup-btn:hover { background:var(--teal-dark); }
+.demo-links { margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+.demo-label { font-size:12px; color:rgba(255,255,255,0.4); }
+.demo-chip { padding:5px 14px; background:transparent; border:1px solid rgba(255,255,255,0.18); border-radius:2px; font-size:12px; font-weight:500; color:rgba(255,255,255,0.65); cursor:pointer; font-family:'DM Sans',sans-serif; transition:border-color 0.15s,color 0.15s,background 0.15s; }
+.demo-chip:hover { border-color:rgba(255,255,255,0.45); color:var(--white); background:rgba(255,255,255,0.06); }
+
+/* LOADING */
+.loading-bar { display:none; background:var(--off-white); border-bottom:1px solid var(--sand); padding:20px var(--pad-x); align-items:center; gap:12px; }
+.loading-bar.visible { display:flex; }
+.loading-dots { display:flex; gap:5px; }
+.loading-dot { width:7px; height:7px; background:var(--teal); border-radius:50%; animation:dot-pulse 1.2s ease-in-out infinite; }
+.loading-dot:nth-child(2) { animation-delay:0.2s; }
+.loading-dot:nth-child(3) { animation-delay:0.4s; }
+@keyframes dot-pulse { 0%,80%,100%{opacity:0.25;transform:scale(0.8)}40%{opacity:1;transform:scale(1)} }
+.loading-text { font-size:14px; color:var(--text-light); }
+
+/* RESULTS BAND */
+.results-band { display:none; background:var(--teal); padding:28px var(--pad-x); }
+.results-band.visible { display:block; }
+.results-band-inner { max-width:var(--max-w); margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+.results-eyebrow { font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.65); margin-bottom:4px; }
+.results-address { font-size:24px; font-weight:700; color:var(--white); letter-spacing:-0.01em; }
+.results-sub { font-size:14px; color:rgba(255,255,255,0.65); margin-top:2px; }
+.results-reset { padding:9px 18px; background:transparent; border:1.5px solid rgba(255,255,255,0.4); border-radius:var(--radius-sm); font-size:13px; font-weight:500; font-family:'DM Sans',sans-serif; color:rgba(255,255,255,0.8); cursor:pointer; transition:border-color 0.15s,color 0.15s,background 0.15s; white-space:nowrap; }
+.results-reset:hover { border-color:white; color:white; background:rgba(255,255,255,0.1); }
+
+/* HAZARD STRIP */
+.hazard-strip { display:none; background:var(--white); border-bottom:1px solid var(--sand); padding:32px var(--pad-x); }
+.hazard-strip.visible { display:block; }
+.hazard-strip-inner { max-width:var(--max-w); margin:0 auto; }
+.hazard-strip-label { font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-light); margin-bottom:16px; }
+.hazard-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--sand); border:1px solid var(--sand); border-radius:var(--radius); overflow:hidden; }
+.hazard-card { background:var(--white); padding:24px; display:flex; gap:16px; align-items:flex-start; }
+.hazard-icon { width:40px; height:40px; background:var(--off-white); border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--navy); }
+.hazard-card-body { flex:1; }
+.hazard-name { font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-light); margin-bottom:6px; }
+.hazard-risk-label { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:2px; font-size:12px; font-weight:600; margin-bottom:10px; }
+.risk-low { background:var(--low-bg); color:var(--low); }
+.risk-medium { background:var(--med-bg); color:var(--med); }
+.risk-high { background:var(--high-bg); color:var(--high); }
+.hazard-detail { font-size:13px; color:var(--text-mid); line-height:1.55; }
+
+/* CONTENT PANEL */
+.content-panel { display:none; padding:56px var(--pad-x); background:var(--off-white); }
+.content-panel.visible { display:block; }
+.content-panel-inner { max-width:var(--max-w); margin:0 auto; }
+
+
+
+/* SECTIONS */
+.sections { display:grid; gap:4px; }
+.section-block { background:var(--white); border:1px solid var(--sand); border-radius:var(--radius); overflow:hidden; }
+.section-header { padding:22px 24px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; user-select:none; transition:background 0.15s; }
+.section-header:hover { background:rgba(0,0,0,0.02); }
+.section-header-left { display:flex; align-items:center; gap:14px; }
+.section-num { width:26px; height:26px; background:var(--teal); border-radius:2px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--white); flex-shrink:0; }
+.section-title { font-size:16px; font-weight:700; color:var(--text-dark); letter-spacing:-0.01em; }
+.section-sub { font-size:13px; color:var(--text-light); margin-top:1px; }
+.section-chevron { width:18px; height:18px; color:var(--text-light); transition:transform 0.25s; flex-shrink:0; }
+.section-chevron.open { transform:rotate(180deg); }
+.section-body { padding:0 24px; max-height:0; overflow:hidden; border-top:1px solid transparent; transition:max-height 0.35s ease,padding 0.25s ease,border-color 0.25s ease; }
+.section-body.open { max-height:1400px; padding:24px; border-top-color:var(--sand); }
+
+/* STAT GRID */
+.stat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--sand); border:1px solid var(--sand); border-radius:var(--radius-sm); overflow:hidden; margin-bottom:16px; }
+.stat-card { background:var(--white); padding:20px; }
+.stat-figure { font-size:32px; font-weight:800; letter-spacing:-0.03em; color:var(--navy); line-height:1; margin-bottom:6px; }
+.stat-label { font-size:13px; color:var(--text-mid); line-height:1.45; }
+.stat-source { font-size:11px; color:var(--text-light); margin-bottom:20px; }
+
+/* TIP */
+.tip-block { display:flex; gap:14px; padding:18px 20px; background:var(--teal-light); border-left:3px solid var(--teal); border-radius:0 var(--radius-sm) var(--radius-sm) 0; }
+.tip-icon { flex-shrink:0; color:var(--teal-dark); margin-top:2px; }
+.tip-label { font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--teal-dark); margin-bottom:4px; }
+.tip-text { font-size:14px; color:var(--text-mid); line-height:1.6; }
+
+/* JARGON */
+.jargon-list { display:grid; gap:1px; background:var(--sand); border:1px solid var(--sand); border-radius:var(--radius-sm); overflow:hidden; }
+.jargon-item { background:var(--white); padding:18px 20px; }
+.jargon-term { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.jargon-def { font-size:14px; color:var(--text-mid); line-height:1.55; }
+
+/* CHECKLIST */
+.checklist { display:grid; gap:8px; }
+.checklist-item { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--white); border:1px solid var(--sand); border-radius:var(--radius-sm); cursor:pointer; transition:border-color 0.15s,background 0.15s; }
+.checklist-item:hover { border-color:var(--teal-mid); }
+.checklist-item.checked { background:var(--teal-light); border-color:var(--teal-mid); }
+.check-box { width:20px; height:20px; border:2px solid var(--sand-dark); border-radius:3px; flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; transition:background 0.15s,border-color 0.15s; }
+.checklist-item.checked .check-box { background:var(--teal); border-color:var(--teal); }
+.check-icon { display:none; color:white; }
+.checklist-item.checked .check-icon { display:block; }
+.check-text { font-size:14px; color:var(--text-dark); line-height:1.5; }
+.checklist-item.checked .check-text { color:var(--text-mid); text-decoration:line-through; text-decoration-color:var(--teal-mid); }
+.check-tag { margin-left:auto; flex-shrink:0; padding:2px 8px; border-radius:2px; font-size:11px; font-weight:600; }
+
+/* SIGNALS */
+.signals-list { display:grid; gap:8px; }
+.signal-item { padding:16px 18px; border-radius:var(--radius-sm); border:1px solid transparent; display:flex; gap:14px; align-items:flex-start; }
+.signal-item.positive { background:var(--white); border-color:var(--sand); }
+.signal-item.negative { background:var(--white); border-color:var(--sand); }
+.signal-icon { flex-shrink:0; margin-top:1px; }
+.signal-item.positive .signal-icon { color:var(--low); }
+.signal-item.negative .signal-icon { color:var(--high); }
+.signal-title { font-size:14px; font-weight:700; color:var(--text-dark); margin-bottom:3px; }
+.signal-desc { font-size:13px; color:var(--text-mid); line-height:1.5; }
+
+/* QUESTIONS */
+.questions-list { display:grid; gap:1px; background:var(--sand); border:1px solid var(--sand); border-radius:var(--radius-sm); overflow:hidden; }
+.question-item { background:var(--white); padding:20px; display:flex; gap:16px; align-items:flex-start; }
+.question-q { font-size:11px; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:var(--teal-dark); flex-shrink:0; margin-top:3px; min-width:24px; }
+.question-text { font-size:15px; font-weight:600; color:var(--text-dark); line-height:1.4; margin-bottom:5px; }
+.question-sub { font-size:13px; color:var(--text-mid); line-height:1.5; }
+
+/* INTRO */
+.intro-section { padding:64px var(--pad-x); background:var(--white); }
+.intro-inner { max-width:var(--max-w); margin:0 auto; }
+.intro-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--sand); border:1px solid var(--sand); border-radius:var(--radius); overflow:hidden; }
+.intro-card { background:var(--white); padding:32px; }
+.intro-card-step { font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--teal); margin-bottom:16px; }
+.intro-card h3 { font-size:20px; font-weight:700; color:var(--navy); letter-spacing:-0.02em; margin-bottom:10px; }
+.intro-card p { font-size:14px; color:var(--text-mid); line-height:1.65; }
+
+/* RESOURCES */
+.resources-section { background:var(--navy); padding:56px var(--pad-x); }
+.resources-inner { max-width:var(--max-w); margin:0 auto; }
+.resources-heading { font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.08); }
+.resources-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius-sm); overflow:hidden; }
+.resource-card { background:var(--navy); padding:22px; display:flex; gap:14px; align-items:flex-start; cursor:pointer; transition:background 0.15s; }
+.resource-card:hover { background:rgba(255,255,255,0.04); }
+.resource-card-icon { width:32px; height:32px; background:rgba(0,121,122,0.3); border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--teal-mid); }
+.resource-card-title { font-size:13px; font-weight:600; color:var(--white); margin-bottom:3px; line-height:1.3; }
+.resource-card-url { font-size:11px; color:rgba(255,255,255,0.35); }
+
+/* FOOTER */
+.footer { background:var(--navy-dark); border-top:1px solid rgba(255,255,255,0.06); padding:32px var(--pad-x); }
+.footer-inner { max-width:var(--max-w); margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+.footer-copy { font-size:12px; color:rgba(255,255,255,0.3); line-height:1.7; }
+.footer-copy strong { color:rgba(255,255,255,0.55); font-weight:600; }
+.footer-tag { display:inline-flex; align-items:center; gap:6px; font-size:11px; color:rgba(255,255,255,0.3); font-weight:500; }
+.footer-tag-dot { width:5px; height:5px; background:var(--teal); border-radius:50%; }
+
+/* RESPONSIVE */
+@media (max-width:900px) {
+  :root { --pad-x:24px; }
+  .content-panel-inner { grid-template-columns:1fr; }
+  .sidebar { display:none; }
+  .hazard-grid,.intro-grid,.stat-grid,.resources-grid { grid-template-columns:1fr; }
+}
+@media (max-width:640px) {
+  :root { --pad-x:20px; }
+  .nav-links,.nav-divider,.nav-section,.audience-label { display:none; }
+  .hero { padding:52px var(--pad-x) 48px; }
+  .lookup-wrap { flex-direction:column; }
+  .lookup-input { border-right:1.5px solid rgba(255,255,255,0.2); border-radius:var(--radius-sm); }
+  .lookup-btn { border-radius:var(--radius-sm); }
+}
+</style>
+</head>
+<body>
+
+<div class="proto-notice">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <strong>Prototype only --</strong> Demo scenarios. No real address data is processed.
+</div>
+
+<div class="audience-bar">
+  <div class="audience-bar-inner">
+    <span class="audience-label">I am a</span>
+    <button class="audience-tab active" onclick="switchAudience(this)">Property Buyer</button>
+    <button class="audience-tab" onclick="switchAudience(this)">Renter</button>
+    <button class="audience-tab" onclick="switchAudience(this)">Small Business Owner</button>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Property Buyers Toolkit</div>
+    <h1>Know your risk <em>before</em> you buy.</h1>
+    <p class="hero-sub">Natural hazards affect property values, insurance costs, and liveability. Check any address to understand what you're buying into.</p>
+    <div class="lookup-wrap">
+      <div class="lookup-input-wrap">
+        <span class="lookup-input-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </span>
+        <input class="lookup-input" id="addressInput" type="text" placeholder="Enter a property address" oninput="handleInput(this.value)">
+      </div>
+      <button class="lookup-btn" onclick="triggerLookup()">Check hazards</button>
+    </div>
+    <div class="demo-links">
+      <span class="demo-label">Try a demo address:</span>
+      <button class="demo-chip" onclick="loadScenario('highton')">Highton VIC -- Flood</button>
+      <button class="demo-chip" onclick="loadScenario('manly')">Manly NSW -- Coastal storm</button>
+      <button class="demo-chip" onclick="loadScenario('cairns')">Cairns QLD -- Cyclone</button>
+    </div>
+  </div>
+</section>
+
+<div class="loading-bar" id="loadingBar">
+  <div class="loading-dots"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div>
+  <span class="loading-text">Checking hazard data for this address…</span>
+</div>
+
+<div class="results-band" id="resultsBand">
+  <div class="results-band-inner">
+    <div>
+      <div class="results-eyebrow">Hazard profile for</div>
+      <div class="results-address" id="resultAddress">--</div>
+      <div class="results-sub" id="resultSub">--</div>
+    </div>
+    <button class="results-reset" onclick="resetLookup()">← Search another address</button>
+  </div>
+</div>
+
+<div class="hazard-strip" id="hazardStrip">
+  <div class="hazard-strip-inner">
+    <div class="hazard-strip-label">Identified hazards</div>
+    <div class="hazard-grid" id="hazardGrid"></div>
+  </div>
+</div>
+
+<div class="content-panel" id="contentPanel">
+  <div class="content-panel-inner">
+    <div class="sections" id="sections">
+
+      <div class="section-block">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-header-left">
+            <div class="section-num">1</div>
+            <div><div class="section-title">What this could cost you</div><div class="section-sub">Real figures from flood and fire events</div></div>
+          </div>
+          <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="section-body">
+          <div class="stat-grid" id="statGrid"></div>
+          <div class="stat-source" id="statSource"></div>
+          <div class="tip-block">
+            <span class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21h6"/><path d="M12 3a6 6 0 0 1 6 6c0 2.2-1.2 4.1-3 5.2V17a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-2.8C7.2 13.1 6 11.2 6 9a6 6 0 0 1 6-6z"/></svg></span>
+            <div><div class="tip-label">Helpful tip</div><div class="tip-text" id="costTip"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-header-left">
+            <div class="section-num">2</div>
+            <div><div class="section-title">Making sense of risk ratings</div><div class="section-sub">What the terms on your report actually mean</div></div>
+          </div>
+          <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="section-body"><div class="jargon-list" id="jargonList"></div></div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-header-left">
+            <div class="section-num">3</div>
+            <div><div class="section-title">Before you make an offer</div><div class="section-sub">Steps to take when this property has hazard risk</div></div>
+          </div>
+          <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="section-body"><div class="checklist" id="checklist"></div></div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-header-left">
+            <div class="section-num">4</div>
+            <div><div class="section-title">What to look for at inspection</div><div class="section-sub">Signs a property is -- or isn't -- resilient</div></div>
+          </div>
+          <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="section-body"><div class="signals-list" id="signalsList"></div></div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-header-left">
+            <div class="section-num">5</div>
+            <div><div class="section-title">Three questions for your insurer</div><div class="section-sub">Ask these before you sign anything</div></div>
+          </div>
+          <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="section-body">
+          <div class="questions-list" id="questionsList"></div>
+          <div class="tip-block" style="margin-top:16px">
+            <span class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></span>
+            <div><div class="tip-label">Helpful tip</div><div class="tip-text">Some insurers exclude flood entirely in high-risk areas, or define "flood" differently to storm water. Always read the Product Disclosure Statement (PDS), not just the quote summary.</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="intro-section" id="introSection">
+  <div class="intro-inner">
+    <div class="intro-grid">
+      <div class="intro-card"><div class="intro-card-step">01 / Understand</div><h3>Know your hazards</h3><p>Every property sits within a flood zone, bushfire zone, cyclone or storm surge area. Most buyers don't check until it's too late.</p></div>
+      <div class="intro-card"><div class="intro-card-step">02 / Prepare</div><h3>Ask the right questions</h3><p>Before you make an offer, there are specific checks, reports, and conversations with your insurer that can save you tens of thousands.</p></div>
+      <div class="intro-card"><div class="intro-card-step">03 / Protect</div><h3>Cover the gaps</h3><p>Insurance definitions matter. A policy that covers "storm" may not cover "flood." Understanding the difference is the difference.</p></div>
+    </div>
+  </div>
+</div>
+
+<section class="resources-section">
+  <div class="resources-inner">
+    <div class="resources-heading">Further resources</div>
+    <div class="resources-grid">
+      <div class="resource-card">
+        <div class="resource-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg></div>
+        <div><div class="resource-card-title">Hazards Insurance Partnership</div><div class="resource-card-url">nema.gov.au/our-work/resilience/hazards-insurance-partnership</div></div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></div>
+        <div><div class="resource-card-title">National Flood Information Portal</div><div class="resource-card-url">floodinformation.ga.gov.au</div></div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div><div class="resource-card-title">Your Flood Resilient Home</div><div class="resource-card-url">NEMA toolkit PDF -- free download</div></div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.54 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.69a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.03z"/></svg></div>
+        <div><div class="resource-card-title">Insurance Council of Australia</div><div class="resource-card-url">insurancecouncil.com.au</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-copy"><strong>National Emergency Management Agency</strong> -- nema.gov.au<br>This tool provides general information only. Always seek independent professional advice for property and insurance decisions.</div>
+    <div class="footer-tag"><span class="footer-tag-dot"></span>Prototype -- Accenture Song</div>
+  </div>
+</footer>
+
+<script>
+const WAVES=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5s2.5 2 5 2 2.5-2 5-2 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 1.9.5 2.5 1"/></svg>`;
+const FLAME=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`;
+const WIND=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>`;
+const CHECK=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
+const ALERT=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+
+const scenarios={
+  highton:{address:"Highton VIC 3216",sub:"Barwon River catchment -- Geelong region",
+    hazards:[{icon:WAVES,name:"Flood",risk:"high",riskLabel:"High risk",detail:"Overland flow and riverine flood risk. 1-in-100-year AEP flood modelling shows ground floor inundation likely."},{icon:FLAME,name:"Bushfire",risk:"low",riskLabel:"Low risk",detail:"BAL-LOW designation. Limited bushfire fuel load in this urban area."},{icon:WIND,name:"Storm",risk:"medium",riskLabel:"Medium risk",detail:"East coast lows and severe storm events. Hail and wind damage recorded in 2012 and 2022."}],
+    costs:[{figure:"$51K",label:"Average flood repair cost, uninsured Geelong homes (2022 event)"},{figure:"23%",label:"Increase in building insurance premiums, flood-exposed postcodes 2020–24"},{figure:"$18K",label:"Average contents loss, flood-inundated homes with no flood cover"}],
+    costSource:"Source: ICA claims data, ABS, Bushfire Royal Commission 2020",
+    costTip:"The 2022 Maribyrnong and Barwon flood event left hundreds of homeowners without flood cover. Many policies excluded 'riverine flood' while covering 'storm surge.' Check your PDS specifically for flood definitions.",
+    jargon:[{term:"Annual Exceedance Probability (AEP)",def:"The chance of a flood event occurring in any given year. A '1% AEP' flood has a 1-in-100 chance per year -- but it can happen two years in a row."},{term:"Flood certificate",def:"A formal council report stating the flood risk classification for a specific property. Required in many states before settlement. Ask your conveyancer."},{term:"BAL rating",def:"Bushfire Attack Level -- a measure of the risk to a structure from bushfire. BAL-LOW means minimal risk; BAL-FZ means flame zone."},{term:"Overland flow",def:"Flooding from water that runs across the surface during heavy rain, separate from riverine flooding. Often excluded from standard flood policies."}],
+    checklist:[{text:"Request a flood certificate from the local council",tag:"Flood"},{text:"Ask your insurer: does this policy cover overland flow AND riverine flood?",tag:"Insurance"},{text:"Check the 1-in-100 year flood map at floodinformation.ga.gov.au",tag:"Flood"},{text:"Ask the vendor for a building inspection report noting water ingress",tag:"Building"},{text:"Get an insurance quote before exchange -- not after",tag:"Insurance"},{text:"Check with council whether any flood mitigation works are planned",tag:"Council"}],
+    signals:[{type:"positive",icon:CHECK,title:"Raised floor level above flood planning height",desc:"Indicates the property was built or modified with flood risk in mind. Ask agent for documentation."},{type:"positive",icon:CHECK,title:"Flood-resilient materials below 1m (tiles, concrete)",desc:"Easy to dry out after inundation -- much cheaper to repair than carpet and plasterboard."},{type:"negative",icon:ALERT,title:"Carpet and plasterboard at ground level",desc:"Will need full replacement after even minor inundation. Budget $15–30K minimum."},{type:"negative",icon:ALERT,title:"Electrical switchboard below 300mm from floor",desc:"Flood safety risk and expensive to relocate. A major red flag in this zone."}],
+    questions:[{q:"Q1",text:"Does this policy cover both riverine flood and overland flow?",sub:"Many policies cover one but not the other. This property has both risk types."},{q:"Q2",text:"What is the policy excess for a flood claim at this address?",sub:"In high-risk postcodes, flood excesses can be $5,000–$15,000. Know before you commit."},{q:"Q3",text:"Will this address become uninsurable in the next 10–15 years?",sub:"Some insurers are already exiting high-risk flood postcodes. Ask directly."}]
+  },
+  manly:{address:"Manly NSW 2095",sub:"Northern Beaches -- Manly Cove and ocean frontage",
+    hazards:[{icon:WAVES,name:"Storm surge",risk:"medium",riskLabel:"Medium risk",detail:"Coastal inundation risk from east coast lows and king tide events. Manly Cove and low-lying streets affected."},{icon:FLAME,name:"Bushfire",risk:"low",riskLabel:"Low risk",detail:"Urban setting with low fuel load. Some interface properties near Manly Dam carry BAL-12.5 ratings."},{icon:WIND,name:"Coastal storm",risk:"high",riskLabel:"High risk",detail:"Significant storm and wave damage risk. East coast lows have caused severe erosion and property damage since 1974."}],
+    costs:[{figure:"$85K",label:"Average storm damage repair, oceanfront properties (2016 event)"},{figure:"31%",label:"Premium increase for coastal-exposed properties, Northern Beaches 2019–24"},{figure:"3.2m",label:"Sea level rise projection, Sydney coast by 2100 (medium scenario)"}],
+    costSource:"Source: Northern Beaches Council Coastal Management Program, ICA, CSIRO",
+    costTip:"Coastal properties in Manly carry a long-term erosion risk that increasingly affects insurability. Check whether the property sits within Northern Beaches Council's coastal erosion hazard line before making an offer.",
+    jargon:[{term:"Storm surge",def:"A temporary rise in sea level caused by strong winds and low atmospheric pressure during a storm. Can inundate low-lying coastal properties."},{term:"Coastal erosion hazard line",def:"A council-mapped boundary showing land at risk of erosion over 50–100 years. Properties within the line face development restrictions and insurance difficulties."},{term:"Insurable interest",def:"Your legal right to insure a property. If a property faces near-term erosion or inundation, some insurers will refuse coverage entirely."},{term:"Section 10.7 certificate",def:"NSW planning certificate disclosing flood, bushfire, and coastal risk classifications. Essential to request before exchange."}],
+    checklist:[{text:"Request a Section 10.7(5) planning certificate from Northern Beaches Council",tag:"Coastal"},{text:"Check if the property is within the coastal erosion hazard line",tag:"Coastal"},{text:"Get an insurance quote before making an offer, not after exchange",tag:"Insurance"},{text:"Ask council about stormwater drainage upgrades planned for the street",tag:"Council"},{text:"Inspect for water damage or staining in subfloor spaces",tag:"Building"},{text:"Check SEPP (Resilience and Hazards) 2021 constraints on the title",tag:"Legal"}],
+    signals:[{type:"positive",icon:CHECK,title:"Elevated above 3m AHD (Australian Height Datum)",desc:"Reduces storm surge inundation risk significantly. Confirm with a surveyor's report."},{type:"positive",icon:CHECK,title:"Stormwater management upgrades visible",desc:"Permeable paving, rainwater tanks and swales indicate the owner has invested in water management."},{type:"negative",icon:ALERT,title:"Ground floor habitable space at or below street level",desc:"Vulnerable to both storm surge and overland flow. Expensive to remediate."},{type:"negative",icon:ALERT,title:"Signs of saltwater intrusion or concrete spalling",desc:"Long-term structural deterioration from coastal exposure. Specialist building inspector required."}],
+    questions:[{q:"Q1",text:"Will you insure this property for coastal flood and storm surge?",sub:"Some insurers are withdrawing from coastal postcodes. Confirm in writing before exchange."},{q:"Q2",text:"How is 'storm' defined -- does it include wave action?",sub:"Storm damage vs. inundation from sea water are often treated differently in PDS wording."},{q:"Q3",text:"Is this property in a postcode flagged for climate-related re-pricing?",sub:"Ask your broker directly -- this is not always disclosed in the quote."}]
+  },
+  cairns:{address:"Cairns QLD 4870",sub:"Tropical North Queensland -- Category 4–5 cyclone exposure",
+    hazards:[{icon:WIND,name:"Cyclone",risk:"high",riskLabel:"High risk",detail:"Wind Region C/D. Tropical cyclone season November–April. Properties must meet NCC cyclone construction standards."},{icon:WAVES,name:"Flood",risk:"high",riskLabel:"High risk",detail:"Intense tropical rainfall -- Cairns receives 2,000mm+ annually. Combined cyclone and flood risk during major events."},{icon:FLAME,name:"Bushfire",risk:"low",riskLabel:"Low risk",detail:"Tropical vegetation reduces bushfire risk significantly in coastal areas."}],
+    costs:[{figure:"$22K",label:"Average cyclone-related building damage, QLD 2023–24 season"},{figure:"41%",label:"Cairns home insurance premiums above national average (2024)"},{figure:"1 in 4",label:"Far North QLD homes paying more than $5,000/year in building insurance"}],
+    costSource:"Source: ICA, ACCC Northern Australia Insurance Inquiry, ARPC",
+    costTip:"North Queensland insurance costs are a national policy issue. The Australian Reinsurance Pool Corporation (ARPC) Cyclone Reinsurance Pool may reduce your premium -- check whether your insurer participates.",
+    jargon:[{term:"Wind region (NCC)",def:"A National Construction Code classification defining the cyclone wind speed a building must withstand. Cairns sits in Region C/D -- the highest category."},{term:"Cyclone Reinsurance Pool",def:"A federal government scheme that reduces reinsurance costs for insurers in cyclone-exposed areas, intended to lower premiums for North Queensland homeowners."},{term:"Storm tide",def:"The combination of storm surge (wind-driven) and normal tide level. In a major cyclone, storm tide can inundate coastal properties by 3–5 metres."},{term:"Building resilience rating",def:"A voluntary assessment of how well a home would withstand a cyclone. Used in some QLD programs to demonstrate improved resilience and negotiate premiums."}],
+    checklist:[{text:"Confirm the property meets NCC Wind Region C construction standards",tag:"Building"},{text:"Check cyclone reinsurance pool eligibility with your insurer",tag:"Insurance"},{text:"Request council flood overlay map for this property parcel",tag:"Flood"},{text:"Inspect roof tie-down and connection details -- key structural point in cyclones",tag:"Building"},{text:"Factor the current insurance premium into your purchase budget",tag:"Insurance"},{text:"Check for storm tide inundation zone in Cairns Regional Council hazard maps",tag:"Coastal"}],
+    signals:[{type:"positive",icon:CHECK,title:"Roof-to-wall and wall-to-foundation connections documented",desc:"Critical in cyclone zones. Look for N3 tie-down ratings and engineering certificates."},{type:"positive",icon:CHECK,title:"Impact-resistant windows and shutters installed",desc:"Reduces wind and debris penetration -- often required for insurance cover in this region."},{type:"negative",icon:ALERT,title:"Older pre-1980s construction without upgrade evidence",desc:"Pre-code homes may lack cyclone tie-downs. Engineering assessment strongly recommended."},{type:"negative",icon:ALERT,title:"Large overhanging eaves or carports not cyclone-rated",desc:"Common failure points in cyclone events that can cause cascading structural damage."}],
+    questions:[{q:"Q1",text:"Does this policy cover cyclone AND associated flood in a single event?",sub:"Cairns events combine wind, rain and flood. Confirm both are covered in the same claim."},{q:"Q2",text:"Is this property eligible for the Cyclone Reinsurance Pool?",sub:"If your insurer participates, you may be entitled to a lower premium. Ask specifically."},{q:"Q3",text:"What re-instatement cost is used -- is it current?",sub:"Building costs in FNQ have risen sharply. Under-insurance is a major risk after major events."}]
+  }
+};
+
+let currentScenario=null;
+
+function riskBadge(risk,label){return`<span class="hazard-risk-label risk-${risk}"><svg width="7" height="7" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>${label}</span>`;}
+function tagStyle(tag){const s={Flood:'background:#EBF4FB;color:#2E7FB8',Insurance:'background:#F0EBF8;color:#6B4BAD',Building:'background:#FEF5E4;color:#C47D0A',Council:'background:#E8F5EC;color:#2D7D46',Legal:'background:#FDEAEA;color:#B83030',Coastal:'background:#EBF4FB;color:#2E7FB8'};return s[tag]||'background:#F0F0F0;color:#555';}
+
+function toggleSection(header){const body=header.nextElementSibling;const chev=header.querySelector('.section-chevron');const open=body.classList.contains('open');body.classList.toggle('open',!open);chev.classList.toggle('open',!open);}
+function switchAudience(btn){document.querySelectorAll('.audience-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');}
+function jumpTo(idx,btn){document.querySelectorAll('.sidebar-item').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const b=document.querySelectorAll('.section-block');if(b[idx]){b[idx].scrollIntoView({behavior:'smooth',block:'start'});const h=b[idx].querySelector('.section-header');const bd=b[idx].querySelector('.section-body');if(!bd.classList.contains('open'))toggleSection(h);}}
+function handleInput(v){}
+function triggerLookup(){const v=document.getElementById('addressInput').value.trim().toLowerCase();if(!v)return;if(v.includes('cairns')||v.includes('qld'))loadScenario('cairns');else if(v.includes('manly')||v.includes('nsw'))loadScenario('manly');else loadScenario('highton');}
+
+function loadScenario(key){
+  const data=scenarios[key];currentScenario=key;
+  document.getElementById('introSection').style.display='none';
+  ['resultsBand','hazardStrip','contentPanel'].forEach(id=>document.getElementById(id).classList.remove('visible'));
+  document.getElementById('loadingBar').classList.add('visible');
+  setTimeout(()=>{
+    document.getElementById('loadingBar').classList.remove('visible');
+    renderResults(data);
+    ['resultsBand','hazardStrip','contentPanel'].forEach(id=>document.getElementById(id).classList.add('visible'));
+    document.getElementById('resultsBand').scrollIntoView({behavior:'smooth',block:'start'});
+  },900);
+}
+
+function resetLookup(){
+  ['resultsBand','hazardStrip','contentPanel'].forEach(id=>document.getElementById(id).classList.remove('visible'));
+  document.getElementById('introSection').style.display='block';
+  document.getElementById('addressInput').value='';
+  currentScenario=null;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderResults(data){
+  document.getElementById('resultAddress').textContent=data.address;
+  document.getElementById('resultSub').textContent=data.sub;
+  document.getElementById('hazardGrid').innerHTML=data.hazards.map(h=>`<div class="hazard-card"><div class="hazard-icon">${h.icon}</div><div class="hazard-card-body"><div class="hazard-name">${h.name}</div>${riskBadge(h.risk,h.riskLabel)}<div class="hazard-detail">${h.detail}</div></div></div>`).join('');
+  document.getElementById('statGrid').innerHTML=data.costs.map(c=>`<div class="stat-card"><div class="stat-figure">${c.figure}</div><div class="stat-label">${c.label}</div></div>`).join('');
+  document.getElementById('statSource').textContent=data.costSource;
+  document.getElementById('costTip').textContent=data.costTip;
+  document.getElementById('jargonList').innerHTML=data.jargon.map(j=>`<div class="jargon-item"><div class="jargon-term">${j.term}</div><div class="jargon-def">${j.def}</div></div>`).join('');
+  document.getElementById('checklist').innerHTML=data.checklist.map(item=>`<div class="checklist-item" onclick="this.classList.toggle('checked')"><div class="check-box"><svg class="check-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="check-text">${item.text}</span><span class="check-tag" style="${tagStyle(item.tag)}">${item.tag}</span></div>`).join('');
+  document.getElementById('signalsList').innerHTML=data.signals.map(s=>`<div class="signal-item ${s.type}"><span class="signal-icon">${s.icon}</span><div><div class="signal-title">${s.title}</div><div class="signal-desc">${s.desc}</div></div></div>`).join('');
+  document.getElementById('questionsList').innerHTML=data.questions.map(q=>`<div class="question-item"><div class="question-q">${q.q}</div><div><div class="question-text">${q.text}</div><div class="question-sub">${q.sub}</div></div></div>`).join('');
+  const fh=document.querySelector('#sections .section-header');
+  if(fh)toggleSection(fh);
+}
+</script>
+</body>
+</html>
