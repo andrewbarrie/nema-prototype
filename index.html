@@ -26,14 +26,14 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --teal:#00797A; --teal-dark:#005C5D; --teal-deeper:#004344;
-  --teal-light:#E8F4F4; --teal-mid:#A8D4D4;
-  --navy:#003E5A; --navy-dark:#002D42;
-  --white:#FFFFFF; --off-white:#F4F5F5;
+  --teal-light:#E8F4F4; --teal-mid:#A8D4D4; --teal-70:#8ACBB5;
+  --navy:#003E5A; --navy-dark:#002D42; --navy-3:#ECF5F8;
+  --white:#FFFFFF; --off-white:#F1F2F2;
   --sand:#EDE8DF; --sand-dark:#D4CBBB;
   --text-dark:#1C1C1C; --text-mid:#4A4A4A; --text-light:#767676;
   --low:#2D7D46; --low-bg:#E8F5EC;
   --med:#C47D0A; --med-bg:#FEF5E4;
-  --high:#B83030; --high-bg:#FDEAEA;
+  --high:#B94527; --high-bg:#FFE8E3;
   --radius-sm:3px; --radius:6px; --radius-lg:12px;
   --max-w:1080px; --pad-x:48px;
 }
@@ -58,30 +58,29 @@ body { font-family:'Gotham',sans-serif; font-size:16px; line-height:1.65; color:
 .nav-link:hover { color:var(--navy); background:var(--off-white); }
 
 /* AUDIENCE BAR */
-.audience-bar { background:var(--off-white); border-bottom:1px solid var(--sand); }
-.audience-bar-inner { max-width:var(--max-w); margin:0 auto; padding:0 var(--pad-x); display:flex; align-items:center; }
-.audience-label { font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-mid); margin-right:20px; white-space:nowrap; }
-.audience-tab { padding:13px 20px; font-size:15px; font-weight:500; color:var(--text-mid); cursor:pointer; border:none; background:none; border-bottom:2px solid transparent; font-family:'Gotham',sans-serif; transition:color 0.15s,border-color 0.15s; }
+.audience-bar { background:var(--white); border-bottom:1px solid var(--sand); }
+.audience-bar-inner { max-width:var(--max-w); margin:0 auto; padding:0 var(--pad-x); display:flex; align-items:center; gap:24px; }
+.audience-label { display:none; }
+.audience-tab { padding:13px 0; font-size:16px; font-weight:500; color:var(--teal); cursor:pointer; border:none; background:none; border-bottom:4px solid transparent; font-family:'Gotham',sans-serif; transition:color 0.15s,border-color 0.15s; }
 .audience-tab:hover { color:var(--navy); }
-.audience-tab.active { color:var(--navy); border-bottom-color:var(--teal); font-weight:600; }
+.audience-tab.active { color:var(--navy); border-bottom-color:var(--teal-70); font-weight:500; }
 
 /* HERO */
 .hero { background:var(--navy); padding:80px var(--pad-x) 72px; position:relative; overflow:hidden; }
 .hero::after { content:''; position:absolute; top:0; right:0; width:40%; height:100%; background:linear-gradient(to left,rgba(0,121,122,0.12),transparent); pointer-events:none; }
-.hero-inner { max-width:var(--max-w); margin:0 auto; position:relative; z-index:1; }
-.hero-eyebrow { font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--teal-mid); margin-bottom:24px; }
-.hero h1 { font-family:'Gotham',sans-serif; font-size:clamp(40px,5vw,64px); font-weight:700; color:var(--white); line-height:1.0; letter-spacing:-0.02em; margin-bottom:20px; max-width:640px; }
+.hero-inner { max-width:var(--max-w); margin:0 auto; position:relative; z-index:1; display:flex; flex-direction:column; gap:0; }
+.hero-eyebrow { font-size:24px; font-weight:500; letter-spacing:0; text-transform:none; color:var(--white); margin-bottom:0; }
+.hero h1 { font-family:'Gotham',sans-serif; font-size:64px; font-weight:700; color:var(--white); line-height:1; letter-spacing:0; margin-bottom:24px; max-width:700px; }
 .hero h1 em { font-style:normal; color:var(--teal-mid); }
-.hero-sub { font-size:18px; color:rgba(255,255,255,0.62); line-height:1.55; max-width:520px; margin-bottom:44px; }
+.hero-sub { font-size:20px; font-weight:400; color:rgba(255,255,255,0.85); line-height:1.55; max-width:520px; margin-bottom:44px; }
 
 /* LOOKUP */
-.lookup-wrap { display:flex; max-width:560px; }
+.lookup-wrap { display:flex; gap:8px; max-width:560px; align-items:stretch; }
 .lookup-input-wrap { position:relative; flex:1; }
-.lookup-input-icon { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:rgba(255,255,255,0.35); pointer-events:none; display:flex; }
-.lookup-input { width:100%; height:50px; padding:0 16px 0 46px; background:rgba(255,255,255,0.1); border:1.5px solid rgba(255,255,255,0.2); border-right:none; border-radius:var(--radius-sm) 0 0 var(--radius-sm); font-size:15px; font-family:'Gotham',sans-serif; color:var(--white); outline:none; transition:border-color 0.15s,background 0.15s; }
+.lookup-input { width:100%; height:48px; padding:0 16px; background:transparent; border:1px solid var(--white); border-radius:4px; font-size:16px; font-weight:400; font-family:'Gotham',sans-serif; color:var(--white); outline:none; transition:border-color 0.15s; }
 .lookup-input::placeholder { color:rgba(255,255,255,0.55); }
-.lookup-input:focus { border-color:rgba(255,255,255,0.5); background:rgba(255,255,255,0.14); }
-.lookup-btn { height:50px; padding:0 28px; background:var(--teal); border:none; border-radius:0 var(--radius-sm) var(--radius-sm) 0; font-size:14px; font-weight:600; font-family:'Gotham',sans-serif; color:var(--white); cursor:pointer; white-space:nowrap; transition:background 0.15s; }
+.lookup-input:focus { border-color:var(--white); }
+.lookup-btn { height:48px; padding:8px 16px; background:var(--teal); border:none; border-radius:8px; font-size:16px; font-weight:500; font-family:'Gotham',sans-serif; color:var(--white); cursor:pointer; white-space:nowrap; transition:background 0.15s; }
 .lookup-btn:hover { background:var(--teal-dark); }
 .demo-links { margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
 .demo-label { font-size:13px; color:rgba(255,255,255,0.4); }
@@ -112,124 +111,122 @@ body { font-family:'Gotham',sans-serif; font-size:16px; line-height:1.65; color:
 .hazard-strip { display:none; background:var(--white); border-bottom:1px solid var(--sand); padding:32px var(--pad-x); }
 .hazard-strip.visible { display:block; }
 .hazard-strip-inner { max-width:var(--max-w); margin:0 auto; }
-.hazard-strip-label { font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-light); margin-bottom:16px; }
-.hazard-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--sand); border:1px solid var(--sand); border-radius:var(--radius); overflow:hidden; }
-.hazard-card { background:var(--white); padding:24px; display:flex; gap:16px; align-items:flex-start; }
-.hazard-icon { width:40px; height:40px; background:var(--off-white); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--navy); }
-.hazard-card-body { flex:1; }
+.hazard-strip-label { font-size:32px; font-weight:700; color:var(--navy); margin-bottom:24px; letter-spacing:-0.02em; }
+.hazard-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.hazard-card { background:var(--white); padding:24px; display:flex; flex-direction:column; gap:24px; border:1px solid #F1F2F2; border-radius:16px; }
+.hazard-icon { width:64px; height:64px; min-width:64px; min-height:64px; background:var(--teal); border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:var(--white); }
+.hazard-card-top { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; width:100%; }
+.hazard-card-left { display:flex; flex-direction:column; gap:16px; flex:1; }
 .hazard-name { font-size:16px; font-weight:700; color:var(--navy); margin-bottom:6px; }
-.hazard-risk-label { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:2px; font-size:13px; font-weight:600; margin-bottom:10px; }
-.risk-low { background:var(--low-bg); color:var(--low); }
-.risk-medium { background:var(--med-bg); color:var(--med); }
-.risk-high { background:var(--high-bg); color:var(--high); }
+.hazard-risk-label { display:inline-flex; align-items:center; gap:4px; padding:8px; border-radius:8px; font-size:12px; font-weight:500; white-space:nowrap; flex-shrink:0; }
+.risk-low { background:#E7F5F0; color:#00797A; }
+.risk-medium { background:rgba(230,141,16,0.15); color:#C47D0A; }
+.risk-high { background:#FFE8E3; color:#B94527; }
 .hazard-source { font-size:13px; color:var(--text-light); margin-top:14px; line-height:1.55; }
-.hazard-detail { font-size:15px; color:var(--text-mid); line-height:1.55; }
+.hazard-detail { font-size:18px; font-weight:400; color:var(--navy); line-height:1.55; }
 
 /* CONTENT PANEL */
-.content-panel { display:none; padding:56px var(--pad-x); background:var(--off-white); }
+.content-panel { display:none; padding:56px var(--pad-x); background:#F1F2F2; }
 .content-panel.visible { display:block; }
 .content-panel-inner { max-width:var(--max-w); margin:0 auto; }
 
 
 
 /* SECTIONS */
-.sections { display:grid; gap:4px; }
-.section-block { background:var(--white); border:1px solid var(--sand); border-radius:var(--radius); overflow:hidden; }
-.section-header { padding:22px 24px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; user-select:none; transition:background 0.15s; }
-.section-header:hover { background:rgba(0,0,0,0.02); }
+.sections { display:grid; gap:8px; }
+.section-block { background:var(--white); border:1px solid #F1F2F2; border-radius:16px; overflow:hidden; }
+.section-header { padding:24px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; user-select:none; transition:background 0.15s; background:var(--white); }
+.section-header:hover { background:#FAFAFA; }
 .section-header-left { display:flex; align-items:center; gap:20px; }
-.section-num { width:28px; height:28px; background:var(--teal); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--white); flex-shrink:0; }
+.section-num { width:40px; height:40px; min-width:40px; background:var(--teal); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:500; color:var(--white); flex-shrink:0; }
 .section-title { font-size:17px; font-weight:700; color:var(--navy); }
-.section-sub { font-size:14px; color:var(--text-light); margin-top:1px; }
+.section-sub { font-size:18px; font-weight:400; color:var(--navy); margin-top:4px; }
 .heading-sub { font-size:18px; font-weight:600; color:var(--navy); margin-bottom:16px; }
 .heading-sub { font-size:18px; font-weight:600; color:var(--navy); margin-bottom:16px; }
 .heading-section { font-size:22px; font-weight:700; color:var(--navy); margin-bottom:8px; }
 .section-chevron { width:18px; height:18px; color:var(--text-light); transition:transform 0.25s; flex-shrink:0; }
 .section-chevron.open { transform:rotate(180deg); }
-.section-body { padding:0 24px; max-height:0; overflow:hidden; border-top:1px solid transparent; transition:max-height 0.35s ease,padding 0.25s ease,border-color 0.25s ease; }
-.section-body.open { max-height:1400px; padding:24px; border-top-color:var(--sand); }
+.section-body { padding:0 80px; max-height:0; overflow:hidden; border-top:2px solid transparent; transition:max-height 0.35s ease,padding 0.25s ease,border-color 0.25s ease; }
+.section-body.open { max-height:1400px; padding:48px 80px; border-top-color:#F1F2F2; }
 
 /* STAT GRID */
-.stat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--sand); border:1px solid var(--sand); border-radius:var(--radius-sm); overflow:hidden; margin-bottom:16px; }
-.stat-card { background:var(--white); padding:20px; }
-.stat-figure { font-size:32px; font-weight:800; letter-spacing:-0.03em; color:var(--navy); line-height:1; margin-bottom:6px; }
-.stat-label { font-size:15px; color:var(--text-mid); line-height:1.45; }
-.stat-source { font-size:13px; color:var(--text-mid); margin-bottom:20px; }
+.stat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-bottom:20px; }
+.stat-card { padding:0 40px 0 0; border-right:2px solid var(--sand); margin-right:40px; } .stat-card:last-child { border-right:none; margin-right:0; }
+.stat-figure { font-size:48px; font-weight:700; color:var(--navy); line-height:1; margin-bottom:12px; }
+.stat-label { font-size:18px; font-weight:400; color:var(--navy); line-height:1.4; }
+.stat-source { font-size:14px; font-weight:400; color:var(--navy); margin-top:24px; margin-bottom:32px; }
 
-/* TIP */
-.tip-block { display:flex; gap:14px; padding:18px 20px; background:var(--teal-light); border-left:3px solid var(--teal); border-radius:0 var(--radius-sm) var(--radius-sm) 0; }
+.jargon-item:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.signal-item:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.question-item:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.checklist-item:last-child { border-bottom:none; }
+.tip-block { display:flex; gap:24px; padding:24px; background:#E7F5F0; border-radius:8px; }
 .tip-icon { flex-shrink:0; color:var(--teal-dark); margin-top:2px; }
-.tip-label { font-size:12px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--teal-dark); margin-bottom:4px; }
-.tip-text { font-size:16px; color:var(--text-mid); line-height:1.6; }
+.tip-label { font-size:18px; font-weight:500; letter-spacing:0; text-transform:none; color:var(--teal); margin-bottom:16px; }
+.tip-text { font-size:18px; font-weight:400; color:var(--navy); line-height:1.55; }
 
 /* JARGON */
-.jargon-list { display:grid; gap:1px; background:var(--sand); border:1px solid var(--sand); border-radius:var(--radius-sm); overflow:hidden; }
-.jargon-item { background:var(--white); padding:18px 20px; }
+.jargon-list { display:flex; flex-direction:column; gap:0; }
+.jargon-item { padding:0 0 24px 0; border-bottom:1px solid var(--teal-70); margin-bottom:24px; }
 .jargon-term { font-size:16px; font-weight:600; color:var(--navy); margin-bottom:4px; }
-.jargon-def { font-size:16px; color:var(--text-mid); line-height:1.55; }
+.jargon-def { font-size:18px; font-weight:400; color:var(--navy); line-height:1.55; }
 
 /* CHECKLIST */
 .checklist { display:grid; gap:8px; }
-.checklist-item { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--white); border:1px solid var(--sand); border-radius:var(--radius-sm); cursor:pointer; transition:border-color 0.15s,background 0.15s; }
-.checklist-item:hover { border-color:var(--teal-mid); }
-.checklist-item.checked { background:var(--teal-light); border-color:var(--teal-mid); }
+.checklist-item { display:flex; align-items:flex-start; gap:16px; padding:16px 0; border-bottom:1px solid var(--teal-70); cursor:pointer; transition:opacity 0.15s; }
+.checklist-item:hover { opacity:0.8; }
+.checklist-item.checked { opacity:0.6; }
 .check-box { width:20px; height:20px; border:2px solid var(--sand-dark); border-radius:3px; flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; transition:background 0.15s,border-color 0.15s; }
 .checklist-item.checked .check-box { background:var(--teal); border-color:var(--teal); }
 .check-icon { display:none; color:white; }
 .checklist-item.checked .check-icon { display:block; }
-.check-text { font-size:16px; color:var(--navy); line-height:1.5; }
-.checklist-item.checked .check-text { color:var(--text-mid); text-decoration:line-through; text-decoration-color:var(--teal-mid); }
-.check-tag { margin-left:auto; flex-shrink:0; padding:2px 8px; border-radius:2px; font-size:12px; font-weight:600; }
-
+.check-text { font-size:18px; font-weight:400; color:var(--navy); line-height:1.5; }
+.checklist-item.checked .check-text { color:var(--text-mid); text-decoration:line-through; }
 /* SIGNALS */
 .signals-list { display:grid; gap:8px; }
-.signal-item { padding:16px 18px; border-radius:var(--radius-sm); border:1px solid transparent; display:flex; gap:14px; align-items:flex-start; }
-.signal-item.positive { background:var(--white); border-color:var(--sand); }
-.signal-item.negative { background:var(--white); border-color:var(--sand); }
+.signal-item { padding:0 0 24px 0; border-bottom:1px solid var(--teal-70); margin-bottom:24px; display:flex; gap:16px; align-items:flex-start; }
+.signal-item.positive { background:none; }
+.signal-item.negative { background:none; }
 .signal-icon { flex-shrink:0; margin-top:1px; }
 .signal-item.positive .signal-icon { color:var(--low); }
 .signal-item.negative .signal-icon { color:var(--high); }
-.signal-title { font-size:16px; font-weight:600; color:var(--navy); margin-bottom:3px; }
-.signal-desc { font-size:15px; color:var(--text-mid); line-height:1.5; }
+.signal-title { font-size:18px; font-weight:500; color:var(--navy); margin-bottom:6px; }
+.signal-desc { font-size:18px; font-weight:400; color:var(--navy); line-height:1.55; }
 
 /* QUESTIONS */
-.questions-list { display:grid; gap:1px; background:var(--sand); border:1px solid var(--sand); border-radius:var(--radius-sm); overflow:hidden; }
-.question-item { background:var(--white); padding:20px; display:flex; gap:16px; align-items:flex-start; }
-.question-q { font-size:12px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--teal-dark); flex-shrink:0; margin-top:3px; min-width:24px; }
-.question-text { font-size:17px; font-weight:600; color:var(--navy); color:var(--text-dark); line-height:1.4; margin-bottom:5px; }
-.question-sub { font-size:15px; color:var(--text-mid); line-height:1.5; }
+.questions-list { display:flex; flex-direction:column; gap:0; }
+.question-item { padding:0 0 24px 0; border-bottom:1px solid var(--teal-70); margin-bottom:24px; display:flex; gap:16px; align-items:flex-start; }
+.question-q { font-size:18px; font-weight:700; color:var(--teal); flex-shrink:0; min-width:32px; }
+.question-text { font-size:18px; font-weight:500; color:var(--navy); line-height:1.4; margin-bottom:6px; }
+.question-sub { font-size:18px; font-weight:400; color:var(--navy); line-height:1.55; }
 
 /* INTRO */
 .intro-section { padding:64px var(--pad-x); background:var(--white); }
 .intro-inner { max-width:var(--max-w); margin:0 auto; }
 .intro-header { margin-bottom:32px; }
-.intro-header-eyebrow { font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-light); margin-bottom:8px; }
 .intro-header-title { font-size:22px; font-weight:700; color:var(--navy); letter-spacing:-0.01em; }
 .intro-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--sand); border:1px solid var(--sand); border-radius:var(--radius); overflow:hidden; }
 .intro-card { background:var(--white); padding:36px; display:flex; flex-direction:column; gap:16px; }
-.intro-card-top { display:flex; align-items:center; gap:14px; }
-.intro-card-icon { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; background:var(--off-white); color:var(--navy); }
-.intro-card-step { font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--teal); }
-.intro-card h3 { font-size:20px; font-weight:700; color:var(--navy); margin:0; }
-.intro-card p { font-size:16px; color:var(--text-mid); line-height:1.65; margin:0; }
+.intro-card-num { font-size:48px; font-weight:700; color:var(--teal); line-height:1; letter-spacing:0; }
+.intro-card h3 { font-size:24px; font-weight:500; color:var(--navy); margin:0; }
+.intro-card p { font-size:18px; font-weight:400; color:var(--navy); line-height:1.55; margin:0; }
 
 /* PDF DOWNLOAD STRIP */
-.pdf-strip { background:var(--off-white); border-top:1px solid var(--sand); border-bottom:1px solid var(--sand); padding:56px var(--pad-x); }
+.pdf-strip { background:var(--navy-3); padding:56px var(--pad-x); }
 .pdf-strip-inner { max-width:var(--max-w); margin:0 auto; }
 .pdf-strip-header { margin-bottom:32px; }
-.pdf-strip-eyebrow { font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-light); margin-bottom:8px; }
-.pdf-strip-heading { font-size:22px; font-weight:700; color:var(--navy); letter-spacing:-0.01em; }
-.pdf-strip-sub { font-size:16px; color:var(--text-mid); margin-top:6px; max-width:560px; line-height:1.55; }
-.pdf-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--sand); border:1px solid var(--sand); border-radius:var(--radius); overflow:hidden; }
-.pdf-card { background:var(--white); padding:28px; display:flex; flex-direction:column; gap:20px; }
-.pdf-card-top { display:flex; align-items:flex-start; gap:16px; }
-.pdf-card-icon { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.pdf-strip-heading { font-size:32px; font-weight:700; color:var(--navy); letter-spacing:-0.02em; }
+.pdf-strip-sub { font-size:18px; font-weight:400; color:var(--text-mid); margin-top:10px; max-width:560px; line-height:1.55; }
+.pdf-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+.pdf-card { background:var(--white); border-radius:16px; padding:24px; display:flex; flex-direction:column; gap:24px; }
+.pdf-card-top { display:contents; }
+.pdf-card-icon { width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .pdf-card-icon.buyer   { background:rgba(0,121,122,0.1); color:var(--teal); }
 .pdf-card-icon.renter  { background:rgba(0,62,90,0.08);  color:var(--navy); }
 .pdf-card-icon.sme     { background:rgba(0,121,122,0.1); color:var(--teal); }
 .pdf-card-label { font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-light); margin-bottom:4px; }
-.pdf-card-title { font-size:17px; font-weight:700; color:var(--navy); line-height:1.3; }
-.pdf-card-desc { font-size:15px; color:var(--text-mid); line-height:1.6; flex:1; }
+.pdf-card-title { font-size:24px; font-weight:500; color:var(--navy); line-height:1.2; }
+.pdf-card-desc { font-size:18px; font-weight:400; color:var(--text-mid); line-height:1.55; flex:1; }
 .pdf-download-btn { display:inline-flex; align-items:center; gap:8px; padding:10px 18px; background:var(--teal); border:none; border-radius:var(--radius-sm); font-size:14px; font-weight:600; font-family:'Gotham',sans-serif; color:var(--white); cursor:pointer; text-decoration:none; transition:background 0.15s; align-self:flex-start; }
 .pdf-download-btn:hover { background:var(--teal-dark); }
 .pdf-download-btn svg { flex-shrink:0; }
@@ -237,13 +234,13 @@ body { font-family:'Gotham',sans-serif; font-size:16px; line-height:1.65; color:
 
 .resources-section { background:var(--navy); padding:56px var(--pad-x); }
 .resources-inner { max-width:var(--max-w); margin:0 auto; }
-.resources-heading { font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.08); }
-.resources-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius-sm); overflow:hidden; }
-.resource-card { background:var(--navy); padding:22px; display:flex; gap:14px; align-items:flex-start; cursor:pointer; transition:background 0.15s; }
-.resource-card:hover { background:rgba(255,255,255,0.04); }
-.resource-card-icon { width:32px; height:32px; background:rgba(0,121,122,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--teal-mid); }
-.resource-card-title { font-size:15px; font-weight:600; color:var(--white); margin-bottom:3px; line-height:1.3; }
-.resource-card-url { font-size:12px; color:rgba(255,255,255,0.35); }
+.resources-heading { font-size:32px; font-weight:700; color:var(--white); margin-bottom:40px; letter-spacing:-0.02em; }
+.resources-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; }
+.resource-card { border-top:3px solid var(--teal-70); padding-top:20px; }
+.resource-card-title { font-size:24px; font-weight:700; color:var(--white); margin-bottom:10px; line-height:1.2; }
+.resource-card-desc { font-size:16px; font-weight:400; color:rgba(255,255,255,0.7); line-height:1.5; margin-bottom:14px; }
+.resource-card-link { font-size:16px; font-weight:500; color:var(--white); text-decoration:underline; text-decoration-color:rgba(255,255,255,0.4); cursor:pointer; }
+.resource-card-link:hover { text-decoration-color:rgba(255,255,255,0.9); }
 
 /* FOOTER */
 .footer { background:var(--navy); border-top:1px solid rgba(255,255,255,0.06); padding:32px var(--pad-x); }
@@ -258,15 +255,15 @@ body { font-family:'Gotham',sans-serif; font-size:16px; line-height:1.65; color:
   :root { --pad-x:24px; }
   .content-panel-inner { grid-template-columns:1fr; }
   .sidebar { display:none; }
-  .hazard-grid,.intro-grid,.stat-grid,.resources-grid,.pdf-grid { grid-template-columns:1fr; }
+  .hazard-grid,.intro-grid,.stat-grid,.pdf-grid { grid-template-columns:1fr; }
+  .resources-grid { grid-template-columns:1fr; gap:28px; }
 }
 @media (max-width:640px) {
   :root { --pad-x:20px; }
   .nav-links,.nav-divider,.nav-section,.audience-label { display:none; }
   .hero { padding:52px var(--pad-x) 48px; }
   .lookup-wrap { flex-direction:column; }
-  .lookup-input { border-right:1.5px solid rgba(255,255,255,0.2); border-radius:var(--radius-sm); }
-  .lookup-btn { border-radius:var(--radius-sm); }
+  .lookup-wrap { flex-direction:column; }
 }
 </style>
 </head>
@@ -293,9 +290,6 @@ body { font-family:'Gotham',sans-serif; font-size:16px; line-height:1.65; color:
     <p class="hero-sub">Natural hazards affect property values, insurance costs, and liveability. Check any address to understand what you're buying into.</p>
     <div class="lookup-wrap">
       <div class="lookup-input-wrap">
-        <span class="lookup-input-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </span>
         <input class="lookup-input" id="addressInput" type="text" placeholder="Enter a property address" oninput="handleInput(this.value)">
       </div>
       <button class="lookup-btn" onclick="triggerLookup()">Check hazards</button>
@@ -411,53 +405,32 @@ body { font-family:'Gotham',sans-serif; font-size:16px; line-height:1.65; color:
 <div class="intro-section" id="introSection">
   <div class="intro-inner">
     <div class="intro-header">
-      <div class="intro-header-eyebrow">What this toolkit covers</div>
-      <div class="intro-header-title">Four sections to help you buy with confidence</div>
+      <div class="intro-header-title">What the NEMA toolkit covers</div>
     </div>
     <div class="intro-grid">
 
       <div class="intro-card">
-        <div class="intro-card-top">
-          <div class="intro-card-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          </div>
-          <div class="intro-card-step">01 / Understanding Risk</div>
-        </div>
-        <h3>Know what you're buying into</h3>
-        <p>Every property carries a natural hazard profile. This section helps you read flood, bushfire, cyclone and storm risk ratings and understand what they mean for the property you're considering.</p>
+        <div class="intro-card-num">01.</div>
+        <h3>Understanding risk</h3>
+        <p>Spot environmental vulnerabilities and avoid buying a property with high risk from hazards, which can lead to massive financial liabilities.</p>
       </div>
 
       <div class="intro-card">
-        <div class="intro-card-top">
-          <div class="intro-card-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          </div>
-          <div class="intro-card-step">02 / Preparedness</div>
-        </div>
-        <h3>Ask the right questions before you commit</h3>
-        <p>From flood certificates to insurance quotes, there are specific checks and conversations that should happen before exchange. This section gives you the steps and the language to do them confidently.</p>
+        <div class="intro-card-num">02.</div>
+        <h3>Insurance</h3>
+        <p>We walk you through every step of when and how to get cover for your home, including key questions to ask, and how to claim.</p>
       </div>
 
       <div class="intro-card">
-        <div class="intro-card-top">
-          <div class="intro-card-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div class="intro-card-step">03 / Mitigation</div>
-        </div>
-        <h3>Spot what makes a property more resilient</h3>
-        <p>Some properties are built or retrofitted to withstand hazards better than others. This section shows you what to look for at inspection and how mitigation measures affect long-term costs and insurability.</p>
+        <div class="intro-card-num">03.</div>
+        <h3>Mitigation</h3>
+        <p>See our guides to practical things you should do to add resilience to your property against different kinds of natural hazards.</p>
       </div>
 
       <div class="intro-card">
-        <div class="intro-card-top">
-          <div class="intro-card-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-          </div>
-          <div class="intro-card-step">04 / Insurance</div>
-        </div>
-        <h3>Cover the gaps before it's too late</h3>
-        <p>Flood, storm and fire are often defined differently across policies. This section explains what to ask your insurer, how to read a PDS, and how to make sure you're not underinsured in a high-risk area.</p>
+        <div class="intro-card-num">04.</div>
+        <h3>Preparedness</h3>
+        <p>A guide to understanding your local disaster plans, along with a seasonal checklist to keep your home resilient and ready for anything.</p>
       </div>
 
     </div>
@@ -468,7 +441,6 @@ body { font-family:'Gotham',sans-serif; font-size:16px; line-height:1.65; color:
 <section class="pdf-strip">
   <div class="pdf-strip-inner">
     <div class="pdf-strip-header">
-      <div class="pdf-strip-eyebrow">Toolkit downloads</div>
       <div class="pdf-strip-heading">Take the toolkit with you</div>
       <div class="pdf-strip-sub">Each toolkit is available as a free PDF. Save it, share it, or print it before hazard season.</div>
     </div>
@@ -480,28 +452,11 @@ body { font-family:'Gotham',sans-serif; font-size:16px; line-height:1.65; color:
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           </div>
           <div>
-            <div class="pdf-card-title">Natural Hazard Resilience for Buyers</div>
+            <div class="pdf-card-title">Natural Hazard Resilience for Buyers and Renters</div>
           </div>
         </div>
         <div class="pdf-card-desc">Understanding risk, preparing before you buy, mitigation signals and insurance guidance for property purchasers.</div>
         <a class="pdf-download-btn" href="https://www.nema.gov.au/our-work/resilience/hazards-insurance-partnership" target="_blank">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download PDF
-        </a>
-      </div>
-
-      <div class="pdf-card">
-        <div class="pdf-card-top">
-          <div class="pdf-card-icon renter">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9"/><path d="M9 22V12h6v10"/><path d="M2 10.6L12 2l10 8.6"/></svg>
-          </div>
-          <div>
-            <div class="pdf-card-title">Natural Hazard Resilience for Renters</div>
-          </div>
-        </div>
-        <div class="pdf-card-desc">Know your rights, understand who is responsible, and how to prepare and protect your contents when renting.</div>
-        <a class="pdf-download-btn" href="https://www.nema.gov.au/our-work/resilience/hazards-insurance-partnership" target="_blank">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download PDF
         </a>
       </div>
@@ -517,7 +472,6 @@ body { font-family:'Gotham',sans-serif; font-size:16px; line-height:1.65; color:
         </div>
         <div class="pdf-card-desc">Business continuity planning, emergency response, mitigation investment and insurance guidance for SME operators.</div>
         <a class="pdf-download-btn" href="https://www.nema.gov.au/our-work/resilience/hazards-insurance-partnership" target="_blank">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download PDF
         </a>
       </div>
@@ -531,20 +485,19 @@ body { font-family:'Gotham',sans-serif; font-size:16px; line-height:1.65; color:
     <div class="resources-heading">Further resources</div>
     <div class="resources-grid">
       <div class="resource-card">
-        <div class="resource-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg></div>
-        <div><div class="resource-card-title">Hazards Insurance Partnership</div><div class="resource-card-url">nema.gov.au/our-work/resilience/hazards-insurance-partnership</div></div>
+        <div class="resource-card-title">National Resilience Action Library</div>
+        <div class="resource-card-desc">A NEMA-maintained library of strategies and resources to help homeowners reduce the impact of bushfire, flood and cyclone on their properties.</div>
+        <a class="resource-card-link" href="https://www.nema.gov.au/our-work/resilience/hazards-insurance-partnership" target="_blank">Visit resource</a>
       </div>
       <div class="resource-card">
-        <div class="resource-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></div>
-        <div><div class="resource-card-title">National Flood Information Portal</div><div class="resource-card-url">floodinformation.ga.gov.au</div></div>
+        <div class="resource-card-title">Nation Get Ready resources</div>
+        <div class="resource-card-desc">A NEMA-maintained library of strategies and resources to help homeowners reduce the impact of bushfire, flood and cyclone on their properties.</div>
+        <a class="resource-card-link" href="https://www.nema.gov.au/prepare" target="_blank">Visit resource</a>
       </div>
       <div class="resource-card">
-        <div class="resource-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-        <div><div class="resource-card-title">Your Flood Resilient Home</div><div class="resource-card-url">NEMA toolkit PDF, free download</div></div>
-      </div>
-      <div class="resource-card">
-        <div class="resource-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.54 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.69a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.03z"/></svg></div>
-        <div><div class="resource-card-title">Insurance Council of Australia</div><div class="resource-card-url">insurancecouncil.com.au</div></div>
+        <div class="resource-card-title">Natural Hazard Awareness Modules</div>
+        <div class="resource-card-desc">NEMA toolkit series covering bushfire, flood and storm and cyclone resilience. Developed with state and territory partners and the insurance industry.</div>
+        <a class="resource-card-link" href="https://www.nema.gov.au/our-work/resilience/hazards-insurance-partnership" target="_blank">Visit resource</a>
       </div>
     </div>
   </div>
@@ -558,9 +511,9 @@ body { font-family:'Gotham',sans-serif; font-size:16px; line-height:1.65; color:
 </footer>
 
 <script>
-const WAVES=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5s2.5 2 5 2 2.5-2 5-2 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 1.9.5 2.5 1"/></svg>`;
-const FLAME=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`;
-const WIND=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>`;
+const WAVES=`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5s2.5 2 5 2 2.5-2 5-2 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 1.9.5 2.5 1"/></svg>`;
+const FLAME=`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`;
+const WIND=`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>`;
 const CHECK=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
 const ALERT=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
 
@@ -600,8 +553,6 @@ const scenarios={
 let currentScenario=null;
 
 function riskBadge(risk,label){return`<span class="hazard-risk-label risk-${risk}"><svg width="7" height="7" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>${label}</span>`;}
-function tagStyle(tag){const s={Flood:'background:#EBF4FB;color:#1A5C8A',Insurance:'background:#F0EBF8;color:#4A2D8A',Building:'background:#FEF5E4;color:#8A5200',Council:'background:#E8F5EC;color:#1A5C2E',Legal:'background:#FDEAEA;color:#8A1A1A',Coastal:'background:#EBF4FB;color:#1A5C8A'};return s[tag]||'background:#F0F0F0;color:#555';}
-
 function toggleSection(header){const body=header.nextElementSibling;const chev=header.querySelector('.section-chevron');const open=body.classList.contains('open');body.classList.toggle('open',!open);chev.classList.toggle('open',!open);}
 function switchAudience(btn){document.querySelectorAll('.audience-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');}
 function jumpTo(idx,btn){document.querySelectorAll('.sidebar-item').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const b=document.querySelectorAll('.section-block');if(b[idx]){b[idx].scrollIntoView({behavior:'smooth',block:'start'});const h=b[idx].querySelector('.section-header');const bd=b[idx].querySelector('.section-body');if(!bd.classList.contains('open'))toggleSection(h);}}
@@ -632,12 +583,23 @@ function resetLookup(){
 function renderResults(data){
   document.getElementById('resultAddress').textContent=data.address;
   document.getElementById('resultSub').textContent=data.sub;
-  document.getElementById('hazardGrid').innerHTML=data.hazards.map(h=>`<div class="hazard-card"><div class="hazard-icon">${h.icon}</div><div class="hazard-card-body"><div class="hazard-name">${h.name}</div>${riskBadge(h.risk,h.riskLabel)}<div class="hazard-detail">${h.detail}</div></div></div>`).join('');
+  document.getElementById('hazardGrid').innerHTML=data.hazards.map(h=>`
+    <div class="hazard-card">
+      <div class="hazard-card-top">
+        <div class="hazard-card-left">
+          <div class="hazard-icon">${h.icon}</div>
+          <div class="hazard-name">${h.name}</div>
+        </div>
+        ${riskBadge(h.risk,h.riskLabel)}
+      </div>
+      <div class="hazard-detail">${h.detail}</div>
+    </div>
+  `).join('');
   document.getElementById('statGrid').innerHTML=data.costs.map(c=>`<div class="stat-card"><div class="stat-figure">${c.figure}</div><div class="stat-label">${c.label}</div></div>`).join('');
   document.getElementById('statSource').textContent=data.costSource;
   document.getElementById('costTip').textContent=data.costTip;
   document.getElementById('jargonList').innerHTML=data.jargon.map(j=>`<div class="jargon-item"><div class="jargon-term">${j.term}</div><div class="jargon-def">${j.def}</div></div>`).join('');
-  document.getElementById('checklist').innerHTML=data.checklist.map(item=>`<div class="checklist-item" onclick="this.classList.toggle('checked')"><div class="check-box"><svg class="check-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="check-text">${item.text}</span><span class="check-tag" style="${tagStyle(item.tag)}">${item.tag}</span></div>`).join('');
+  document.getElementById('checklist').innerHTML=data.checklist.map(item=>`<div class="checklist-item" onclick="this.classList.toggle('checked')"><div class="check-box"><svg class="check-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="check-text">${item.text}</span></div>`).join('');
   document.getElementById('signalsList').innerHTML=data.signals.map(s=>`<div class="signal-item ${s.type}"><span class="signal-icon">${s.icon}</span><div><div class="signal-title">${s.title}</div><div class="signal-desc">${s.desc}</div></div></div>`).join('');
   document.getElementById('questionsList').innerHTML=data.questions.map(q=>`<div class="question-item"><div class="question-q">${q.q}</div><div><div class="question-text">${q.text}</div><div class="question-sub">${q.sub}</div></div></div>`).join('');
   const fh=document.querySelector('#sections .section-header');
